@@ -1,0 +1,122 @@
+{
+ "schema_version": "ATIF-v1.7",
+ "session_id": "demo-demo-agent",
+ "agent": {
+  "name": "demo-agent",
+  "version": "1.0",
+  "model_name": "demo-model-large"
+ },
+ "steps": [
+  {
+   "step_id": 1,
+   "timestamp": "2026-01-05T10:01:00Z",
+   "source": "user",
+   "message": "# Summarise a CSV\n\nWrite `/app/summary.py` that prints the row count and the mean of the `value` column of `/app/data.csv`."
+  },
+  {
+   "step_id": 2,
+   "timestamp": "2026-01-05T10:02:00Z",
+   "source": "agent",
+   "message": "Look at the data.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c2",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "head -3 /app/data.csv"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c2",
+      "content": "id,value\n1,10\n2,12\n"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 2400,
+    "completion_tokens": 80,
+    "cached_tokens": 1920,
+    "cost_usd": 0.0008
+   }
+  },
+  {
+   "step_id": 3,
+   "timestamp": "2026-01-05T10:03:00Z",
+   "source": "agent",
+   "message": "Write the script.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c3",
+     "function_name": "Write",
+     "arguments": {
+      "file_path": "/app/summary.py",
+      "content": "import csv\nrows=list(csv.DictReader(open(\"/app/data.csv\")))\nprint(len(rows), sum(float(r[\"value\"]) for r in rows)/len(rows))\n"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c3",
+      "content": "File written."
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 3600,
+    "completion_tokens": 80,
+    "cached_tokens": 2880,
+    "cost_usd": 0.0012
+   }
+  },
+  {
+   "step_id": 4,
+   "timestamp": "2026-01-05T10:04:00Z",
+   "source": "agent",
+   "message": "Run it.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c4",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "python /app/summary.py"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c4",
+      "content": "4 11.5"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 4800,
+    "completion_tokens": 80,
+    "cached_tokens": 3840,
+    "cost_usd": 0.0016
+   }
+  },
+  {
+   "step_id": 5,
+   "timestamp": "2026-01-05T10:05:00Z",
+   "source": "agent",
+   "message": "Row count and mean printed. Done.",
+   "metrics": {
+    "prompt_tokens": 6000,
+    "completion_tokens": 80,
+    "cached_tokens": 4800,
+    "cost_usd": 0.002
+   }
+  }
+ ],
+ "final_metrics": {
+  "total_prompt_tokens": 16800,
+  "total_completion_tokens": 320,
+  "total_cost_usd": 0.0056
+ }
+}

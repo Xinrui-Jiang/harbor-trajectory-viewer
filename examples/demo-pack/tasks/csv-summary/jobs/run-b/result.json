@@ -1,0 +1,12 @@
+{
+ "id": "run-b", "task_name": "csv-summary", "trial_name": "run-b",
+ "started_at": "2026-01-06T08:59:00Z", "finished_at": "2026-01-06T09:03:10Z",
+ "environment_setup": { "started_at": "2026-01-06T08:59:00Z", "finished_at": "2026-01-06T08:59:50Z" },
+ "agent_setup": { "started_at": "2026-01-06T08:59:50Z", "finished_at": "2026-01-06T09:00:00Z" },
+ "agent_execution": { "started_at": "2026-01-06T09:00:00Z", "finished_at": "2026-01-06T09:02:30Z" },
+ "verifier": { "started_at": "2026-01-06T09:02:30Z", "finished_at": "2026-01-06T09:03:10Z" },
+ "agent_info": { "name": "demo-agent", "version": "1.0", "model_info": { "name": "demo-model-small", "provider": "demo" } },
+ "agent_result": { "n_input_tokens": 18900, "n_output_tokens": 260, "cost_usd": 0.0058 },
+ "verifier_result": { "rewards": { "reward": 0 } },
+ "exception_info": null
+}

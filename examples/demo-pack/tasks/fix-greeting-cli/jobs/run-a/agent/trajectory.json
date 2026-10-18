@@ -1,0 +1,129 @@
+{
+ "schema_version": "ATIF-v1.7",
+ "session_id": "demo-demo-agent",
+ "agent": {
+  "name": "demo-agent",
+  "version": "1.0",
+  "model_name": "demo-model-large"
+ },
+ "steps": [
+  {
+   "step_id": 1,
+   "timestamp": "2026-01-05T10:01:00Z",
+   "source": "user",
+   "message": "# Fix the greeting CLI\n\n`/app/greet.py` should print `Hello, <name>!` ..."
+  },
+  {
+   "step_id": 2,
+   "timestamp": "2026-01-05T10:02:00Z",
+   "source": "agent",
+   "message": "Let me look at the file first.",
+   "reasoning_content": "Start by reading the current implementation.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c2",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "cat /app/greet.py"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c2",
+      "content": "import sys\n\ndef main():\n    print(\"Hello, World!\")\n"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 2400,
+    "completion_tokens": 80,
+    "cached_tokens": 1920,
+    "cost_usd": 0.0008
+   }
+  },
+  {
+   "step_id": 3,
+   "timestamp": "2026-01-05T10:03:00Z",
+   "source": "agent",
+   "message": "The name argument is ignored. I will read it from argv with a default.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c3",
+     "function_name": "Write",
+     "arguments": {
+      "file_path": "/app/greet.py",
+      "content": "import sys\n\ndef main():\n    name = sys.argv[1] if len(sys.argv) > 1 else \"World\"\n    print(f\"Hello, {name}!\")\n\nif __name__ == \"__main__\":\n    main()\n"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c3",
+      "content": "File written."
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 3600,
+    "completion_tokens": 80,
+    "cached_tokens": 2880,
+    "cost_usd": 0.0012
+   },
+   "extra": {
+    "cwd": "/app"
+   }
+  },
+  {
+   "step_id": 4,
+   "timestamp": "2026-01-05T10:04:00Z",
+   "source": "agent",
+   "message": "Run the tests.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c4",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "cd /app && pytest -q tests/test_greet.py"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c4",
+      "content": "..\n2 passed in 0.03s"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 4800,
+    "completion_tokens": 80,
+    "cached_tokens": 3840,
+    "cost_usd": 0.0016
+   },
+   "extra": {
+    "cwd": "/app"
+   }
+  },
+  {
+   "step_id": 5,
+   "timestamp": "2026-01-05T10:05:00Z",
+   "source": "agent",
+   "message": "Both tests pass. Done.",
+   "metrics": {
+    "prompt_tokens": 6000,
+    "completion_tokens": 80,
+    "cached_tokens": 4800,
+    "cost_usd": 0.002
+   }
+  }
+ ],
+ "final_metrics": {
+  "total_prompt_tokens": 16800,
+  "total_completion_tokens": 320,
+  "total_cost_usd": 0.0056
+ }
+}

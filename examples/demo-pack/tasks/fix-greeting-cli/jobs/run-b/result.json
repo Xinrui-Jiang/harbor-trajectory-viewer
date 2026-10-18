@@ -1,0 +1,35 @@
+{
+ "task_name": "fix-greeting-cli",
+ "trial_name": "run-b",
+ "agent_info": {
+  "name": "demo-agent",
+  "version": "1.0",
+  "model_info": {
+   "name": "demo-model-small",
+   "provider": "demo"
+  }
+ },
+ "verifier_result": {
+  "rewards": {
+   "reward": 0
+  }
+ },
+ "started_at": "2026-01-05T10:00:00Z",
+ "finished_at": "2026-01-05T10:06:30Z",
+ "environment_setup": {
+  "started_at": "2026-01-05T10:00:00Z",
+  "finished_at": "2026-01-05T10:00:20Z"
+ },
+ "agent_setup": {
+  "started_at": "2026-01-05T10:00:20Z",
+  "finished_at": "2026-01-05T10:00:30Z"
+ },
+ "agent_execution": {
+  "started_at": "2026-01-05T10:00:30Z",
+  "finished_at": "2026-01-05T10:06:00Z"
+ },
+ "verifier": {
+  "started_at": "2026-01-05T10:06:00Z",
+  "finished_at": "2026-01-05T10:06:30Z"
+ }
+}

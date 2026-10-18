@@ -1,0 +1,156 @@
+{
+ "schema_version": "ATIF-v1.7",
+ "session_id": "demo-demo-agent",
+ "agent": {
+  "name": "demo-agent",
+  "version": "1.0",
+  "model_name": "demo-model-small"
+ },
+ "steps": [
+  {
+   "step_id": 1,
+   "timestamp": "2026-01-05T10:01:00Z",
+   "source": "user",
+   "message": "# Fix the greeting CLI\n\n`/app/greet.py` should print `Hello, <name>!` ..."
+  },
+  {
+   "step_id": 2,
+   "timestamp": "2026-01-05T10:02:00Z",
+   "source": "agent",
+   "message": "Patch the print directly.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c2",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "sed -i 's/World/\" + sys.argv[1] + \"/' /app/greet.py"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c2",
+      "content": ""
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 2400,
+    "completion_tokens": 80,
+    "cached_tokens": 1920,
+    "cost_usd": 0.0008
+   }
+  },
+  {
+   "step_id": 3,
+   "timestamp": "2026-01-05T10:03:00Z",
+   "source": "agent",
+   "message": "Check it.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c3",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "python /app/greet.py Ada"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c3",
+      "content": "Traceback (most recent call last):\n  ...\nIndexError: list index out of range"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 3600,
+    "completion_tokens": 80,
+    "cached_tokens": 2880,
+    "cost_usd": 0.0012
+   },
+   "extra": {
+    "tool_result_is_error": true
+   }
+  },
+  {
+   "step_id": 4,
+   "timestamp": "2026-01-05T10:04:00Z",
+   "source": "agent",
+   "message": "Check it.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c4",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "python /app/greet.py Ada"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c4",
+      "content": "Traceback (most recent call last):\n  ...\nIndexError: list index out of range"
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 4800,
+    "completion_tokens": 80,
+    "cached_tokens": 3840,
+    "cost_usd": 0.0016
+   },
+   "extra": {
+    "tool_result_is_error": true
+   }
+  },
+  {
+   "step_id": 5,
+   "timestamp": "2026-01-05T10:05:00Z",
+   "source": "agent",
+   "message": "The quoting went wrong. I will give up on sed and rewrite the file.",
+   "tool_calls": [
+    {
+     "tool_call_id": "c5",
+     "function_name": "Bash",
+     "arguments": {
+      "command": "cat > /app/greet.py << 'EOF'\nimport sys\nprint('Hello, ' + sys.argv[1] + '!')\nEOF"
+     }
+    }
+   ],
+   "observation": {
+    "results": [
+     {
+      "source_call_id": "c5",
+      "content": ""
+     }
+    ]
+   },
+   "metrics": {
+    "prompt_tokens": 6000,
+    "completion_tokens": 80,
+    "cached_tokens": 4800,
+    "cost_usd": 0.002
+   }
+  },
+  {
+   "step_id": 6,
+   "timestamp": "2026-01-05T10:06:00Z",
+   "source": "agent",
+   "message": "Done.",
+   "metrics": {
+    "prompt_tokens": 7200,
+    "completion_tokens": 80,
+    "cached_tokens": 5760,
+    "cost_usd": 0.0024
+   }
+  }
+ ],
+ "final_metrics": {
+  "total_prompt_tokens": 24000,
+  "total_completion_tokens": 400,
+  "total_cost_usd": 0.008
+ }
+}

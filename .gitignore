@@ -1,0 +1,8 @@
+node_modules/
+data/
+dist/
+annotations/
+annotations.json
+public/pack
+public/data
+.DS_Store

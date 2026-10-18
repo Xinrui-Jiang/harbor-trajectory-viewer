@@ -1,0 +1,9 @@
+[task]
+name = "csv-summary"
+description = "Print the row count and the mean of a CSV column."
+[metadata]
+category = "data-processing"
+difficulty = "easy"
+tags = ["python", "csv"]
+[agent]
+timeout_sec = 300

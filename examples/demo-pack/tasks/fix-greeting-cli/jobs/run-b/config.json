@@ -1,0 +1,7 @@
+{
+ "agent": {
+  "name": "demo-agent",
+  "model_name": "demo-model-small"
+ },
+ "job_id": "run-b"
+}
