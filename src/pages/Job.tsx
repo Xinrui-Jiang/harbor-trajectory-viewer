@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useIndex, useJob, useTaskDetail, useSel, mediaRel, fmtNum, fmtCost, fmtDur, fmtReward, FORMAT_LABEL, FAMILY_LABEL, SUS_LABEL, type Kind, type Step, type Job, type Subagent } from '../lib/data';
 import { useAnnotations, AUDIT_LABEL, HACK_LABEL, VERIF_LABEL, type Verdict, type VerifierAudit, type Hack, type Tri, type YesNo } from '../lib/annotations';
 import { useT } from '../lib/i18n';
@@ -105,6 +105,7 @@ export function JobView({ task, job, mode }: { task: string; job: string; mode: 
   const detail = useTaskDetail(task);
   const A = useAnnotations();
   const sel = useSel();
+  const loc = useLocation();
   const [q, setQ] = useState('');
   const [hide, setHide] = useState<Set<Kind>>(new Set());
   const [onlyErr, setOnlyErr] = useState(false);
@@ -132,6 +133,11 @@ export function JobView({ task, job, mode }: { task: string; job: string; mode: 
     };
     window.addEventListener('keydown', h); return () => window.removeEventListener('keydown', h);
   }, [steps, cur]);
+  useEffect(() => {
+    if (!data) return; const m = /^#s-(\d+)$/.exec(loc.hash); if (!m) return;
+    const i = Number(m[1]); const id = setTimeout(() => { setCur(i); setUpto(i); document.getElementById(`s-${i}`)?.scrollIntoView({ block: 'center' }); }, 80);
+    return () => clearTimeout(id);
+  }, [data, loc.hash]);
   useEffect(() => {
     if (!follow || !data) return;
     let raf = 0;

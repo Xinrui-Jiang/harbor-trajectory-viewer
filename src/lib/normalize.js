@@ -100,14 +100,15 @@ const blank = (i, source, text) => ({ i, source, ts: null, model: null, text, me
 const fromATIF = (t) =>
   t.steps.map((s) => {
     const m = parts(s.message);
+    const redacted = /^\s*\{\s*"type"\s*:\s*"redacted_thinking"/.test(m.text);
     return {
-      i: s.step_id, source: s.source, ts: ts(s.timestamp), model: s.model_name ?? null, text: m.text, media: m.media,
+      i: s.step_id, source: s.source, ts: ts(s.timestamp), model: s.model_name ?? null, text: redacted ? '' : m.text, media: m.media,
       reasoning: s.reasoning_content ?? s.thinking_blocks?.map((b) => b.thinking).join('\n') ?? null,
       calls: (s.tool_calls ?? []).map((c) => ({ id: c.tool_call_id, name: c.function_name, args: c.arguments ?? {} })),
       obs: (s.observation?.results ?? []).map((r) => { const o = parts(r.content); return { callId: r.source_call_id ?? null, content: o.text, media: o.media, errorFlag: !!(r.extra?.tool_result_is_error ?? r.extra?.is_error), subagents: (r.subagent_trajectory_ref ?? []).map((x) => x.trajectory_id ?? x.session_id ?? '?') }; }),
       metrics: s.metrics ? { prompt: s.metrics.prompt_tokens ?? 0, completion: s.metrics.completion_tokens ?? 0, cached: s.metrics.cached_tokens ?? 0, cost: s.metrics.cost_usd ?? null } : null,
       llmCalls: s.llm_call_count ?? null, cwd: s.extra?.cwd ?? null, extra: s.extra ?? null,
-      flags: [s.model_name === '<synthetic>' && 'api-error', s.extra?.is_sidechain && 'sidechain', s.extra?.stop_reason === 'max_tokens' && 'truncated', s.is_copied_context && 'copied'].filter(Boolean),
+      flags: [s.model_name === '<synthetic>' && 'api-error', redacted && 'redacted', s.extra?.is_sidechain && 'sidechain', s.extra?.stop_reason === 'max_tokens' && 'truncated', s.is_copied_context && 'copied'].filter(Boolean),
     };
   });
 const parseArgs = (a) => { if (a == null) return {}; if (typeof a !== 'string') return a; try { return JSON.parse(a); } catch { return { raw: a }; } };

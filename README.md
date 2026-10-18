@@ -56,8 +56,7 @@ inferred.
 
 ## Acknowledgements
 
-[ATIF-trajectory-viewer](https://github.com/Slimshilin/ATIF-trajectory-viewer),
-the [Harbor job viewer](https://docs.harborframework.com/results/view-job-results)
-and [osverify.github.io](https://osverify.github.io/).
+[ATIF-trajectory-viewer](https://github.com/Slimshilin/ATIF-trajectory-viewer) and the
+[Harbor job viewer](https://docs.harborframework.com/results/view-job-results).
 
 MIT License.

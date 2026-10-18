@@ -278,7 +278,7 @@ input[list] { padding: 4px 8px; border: 1px solid var(--line); border-radius: 6p
 .chat-step.scored, .step.scored { border-left: 3px solid var(--accent); }
 
 /* ======================================================================
-   Theme: warm paper palette and typographic details after osverify.github.io
+   Theme: warm paper palette and typographic details
    (off-white ground, warm ink, hairline borders, green as the single accent,
    rose for failure, pill buttons, serif display headings).
    ====================================================================== */
@@ -347,3 +347,8 @@ input, select, textarea { border-radius: 8px; }
 .jobpage { min-width: 0; }
 .crow.div { border-color: var(--fg); box-shadow: inset 3px 0 0 var(--fg); }
 .anno .tag { cursor: pointer; }
+
+/* long unbroken strings (base64, hashes) must wrap inside the stream; English sub-nav labels start upper-case */
+.stream, .chat-step, .agent-md, .bubble, .step { overflow-wrap: anywhere; } .chat-step { min-width: 0; }
+.subnav a { display: inline-block; } .subnav a::first-letter { text-transform: uppercase; }
+.brand { white-space: nowrap; }
