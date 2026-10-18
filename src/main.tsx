@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route, NavLink, Navigate, useLocation } from 'react-router-dom';
@@ -43,6 +44,8 @@ function Selector() {
   );
 }
 
+function ScrollTop() { const { pathname, search } = useLocation(); useEffect(() => { window.scrollTo(0, 0); }, [pathname, search]); return null; }
+
 function App() {
   const sel = useSel();
   const t = useT();
@@ -60,6 +63,7 @@ function App() {
       </header>
       <main>
         {error && <p className="notice bad">{t('数据无法加载')}: {error}. {t('先运行 npm run ingest，或上传一个 zip。')}</p>}
+        <ScrollTop />
         <Routes>
           <Route path="/" element={<Navigate to="/check/inventory" replace />} />
           <Route path="/check/:sub?" element={<Check />} />
@@ -71,4 +75,5 @@ function App() {
   );
 }
 
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 createRoot(document.getElementById('root')!).render(<React.StrictMode><HashRouter><App /></HashRouter></React.StrictMode>);

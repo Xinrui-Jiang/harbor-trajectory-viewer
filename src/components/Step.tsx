@@ -6,6 +6,7 @@ import { useT } from '../lib/i18n';
 import type { StepAnno } from '../lib/annotations';
 import { StepTools } from './StepTools';
 
+const FLAG_TEXT: Record<string, string> = { 'api-error': 'API 错误', redacted: '思考内容已脱敏', truncated: '输出被截断', sidechain: '子线程', copied: '复制的上下文' };
 export const KIND_LABEL: Record<Kind, string> = { user: '用户', system: '系统', explore: '探索', edit: '编辑', shell: '命令', verify: '验证', plan: '规划', tool: '其他工具', gui: 'GUI', talk: '对话', finish: '收尾' };
 
 /** Text that is clipped to `n` chars until expanded. */
@@ -53,7 +54,7 @@ function Args({ name, args }: { name: string; args: Record<string, unknown> }) {
 export const StepBadges = ({ s }: { s: Step }) => {
   const t = useT();
   return <>
-    {s.flags.filter((f) => f !== 'converted' && f !== 'stub').map((f) => <span key={f} className="tag mid">{t(f === 'api-error' ? 'API 错误' : f)}</span>)}
+    {s.flags.filter((f) => f !== 'converted' && f !== 'stub').map((f) => <span key={f} className={`tag ${f === 'redacted' || f === 'copied' ? 'gray' : 'mid'}`}>{t(FLAG_TEXT[f] ?? f)}</span>)}
     {s.repeat && <span className="tag mid" title={t('与上一步完全相同的动作（同工具同参数）')}>{t('重复动作')}</span>}
     {s.suspicious?.map((k) => <span key={k} className="tag bad">{t(SUS_LABEL[k] ?? k)}</span>)}
     {s.error && <span className="tag bad" title={s.errorHint === 'text' ? t('从输出文本推断的报错') : t('工具返回标记为错误')}>{s.errorHint === 'text' ? t('疑似报错') : 'error'}</span>}

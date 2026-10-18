@@ -37,8 +37,9 @@ const EN: Record<string, string> = {
   // components/FileViewer.tsx
   '选择左侧文件查看内容': 'select a file on the left', '文件超过 {n}，不在页面内显示': 'File is larger than {n}; not shown inline', '二进制文件': 'binary file', '打开': 'open', '加载中…': 'Loading…',
   // components/Step.tsx
-  '用户': 'User', '系统': 'System', '探索': 'explore', '编辑': 'edit', '命令': 'shell', '验证': 'verify', '规划': 'plan', '其他工具': 'other tool', '对话': 'talk', '收尾': 'finish', '展开全部 {n} 字符': 'expand all {n} chars',
-  'API 错误': 'API errors', '与上一步完全相同的动作（同工具同参数）': 'identical to the previous action (same tool, same arguments)', '重复动作': 'repeated action', '从输出文本推断的报错': 'error inferred from the output text',
+  'API 错误': 'API errors', '思考内容已脱敏': 'thinking redacted', '输出被截断': 'output truncated', '子线程': 'sidechain', '复制的上下文': 'copied context', '用户': 'User', '系统': 'System', '探索': 'explore', '编辑': 'edit',
+  '命令': 'shell', '验证': 'verify', '规划': 'plan', '其他工具': 'other tool', '对话': 'talk', '收尾': 'finish', '展开全部 {n} 字符': 'expand all {n} chars',
+  '与上一步完全相同的动作（同工具同参数）': 'identical to the previous action (same tool, same arguments)', '重复动作': 'repeated action', '从输出文本推断的报错': 'error inferred from the output text',
   '工具返回标记为错误': 'tool result flagged as an error', '疑似报错': 'possible error', '写': 'W', '改': 'M', '删': 'D', '该调用失败，未计入': 'this call failed; not applied', '{n} 次 LLM 调用': '{n} LLM calls',
   '输入 / 输出 token': 'input / output tokens', '隐藏推理': 'hide reasoning', '推理 {n} 字符': 'reasoning, {n} chars', '委托子 agent': 'delegated to subagent',
   // components/StepTools.tsx
@@ -82,10 +83,10 @@ const EN: Record<string, string> = {
   '无判分': 'unscored', '通过': 'pass', '均值': 'mean',
   '每次运行的轨迹文件：完整 = 逐步轨迹；概要 = 只有几步概要；空 = 没有轨迹只有分数': 'trajectory file per run: full = step-by-step; summary = a few summarised steps; empty = no trajectory, only a score', '轨迹完整': 'full trajectories',
   '轨迹': 'Trajectory', '来源：数据包清单中的提供方，或 task.toml 的作者': 'source: the provider named in the pack manifest, or the task.toml authors', '{n} 次运行': '{n} runs', '{n} 个产物': '{n} artifacts',
-  '{a} 个任务 · {b} 次运行 · 生成于 {c}': '{a} tasks · {b} runs · generated {c}', '有完整轨迹的运行': 'runs with a full trajectory',
+  '{a} 个任务 · {b} 次运行 · 生成于 {c}': '{a} tasks · {b} runs · generated {c}', '任务数': 'Tasks', '运行数': 'Runs', '有完整轨迹的运行': 'runs with a full trajectory',
   'reward：满分 {a} · 部分 {b} · 零分 {c} · 无判分 {d}': 'reward: full {a} · partial {b} · zero {c} · unscored {d}', '平均 reward，先按任务平均（{n} 个有判分任务）': 'mean reward, averaged per task first ({n} scored tasks)',
   '二值任务和分数任务一起平均，只作粗略参考': 'binary and graded tasks averaged together; a rough figure only', '输入 token（仅完整轨迹）': 'input tokens (full trajectories only)', '花费（仅有记录的运行）': 'cost (runs with a record only)',
-  '筛选任务…': 'Filter tasks…', '排序': 'sort', '运行数': 'runs', '名称': 'name', '每个方块一次运行：': 'one square per run:', '最高': 'highest', '中间': 'middle', '最低': 'lowest', '未分类': 'uncategorized',
+  '筛选任务…': 'Filter tasks…', '排序': 'sort', '名称': 'name', '每个方块一次运行：': 'one square per run:', '最高': 'highest', '中间': 'middle', '最低': 'lowest', '未分类': 'uncategorized',
   '{a} 个任务 · {b} 次运行': '{a} tasks · {b} runs', '没有任务。': 'No tasks.',
   // pages/Quality.tsx
   '完整轨迹': 'full trajectories', '对话格式（已转换）': 'conversation format (converted)', '只有概要': 'summary only', '空文件': 'empty files', '未知': 'unknown', '按任务计数（前 8）': 'count by task (top 8)', '明细': 'details',

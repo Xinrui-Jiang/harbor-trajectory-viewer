@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { SubNav } from '../components/SubNav';
 import Overview from './Overview';
 import Quality from './Quality';
-import { useIndex, useSel, scored, passRate, hasFull, fmtCost, rewardRange, VERIFIER_LABEL, VERIFIER_DESC, type JobSummary, type Task } from '../lib/data';
+import { useIndex, useSel, scored, passRate, hasFull, fmtCost, rewardRange, VERIFIER_LABEL, VERIFIER_DESC, type JobSummary, type Task, fmtDur } from '../lib/data';
 import { useAnnotations, isAnnotated } from '../lib/annotations';
 import { useT } from '../lib/i18n';
 import { usePaged, Pager } from '../components/Paged';
@@ -80,7 +80,7 @@ function VerifierView() {
             <td><span className={`tag ${v.rewardShape === 'none' ? 'gray' : ''}`}>{shape(T)}</span></td>
             <td>{v.kinds.length ? v.kinds.map((k) => <span key={k} className="tag gray" style={{ marginRight: 4 }} title={t(VERIFIER_DESC[k] ?? '')}>{t(VERIFIER_LABEL[k] ?? k)}</span>) : <span className="faint">{t('未识别')}</span>}</td>
             <td>{v.llmJudge === true ? <span className="tag mid">{t('是')}</span> : v.llmJudge === false ? <span className="faint">{t('否')}</span> : <span className="faint">{t('未知')}</span>}</td>
-            <td className="num">{v.timeoutSec ? Math.round(v.timeoutSec / 60) + ' min' : '–'}</td>
+            <td className="num">{v.timeoutSec ? fmtDur(v.timeoutSec) : '–'}</td>
             <td className="mono muted">{extra.join(', ') || '–'}</td>
           </tr>); })}
         </tbody>
@@ -120,7 +120,7 @@ function BySource() {
         <thead><tr><th>{t('来源')}</th><th>{t('任务')}</th><th className="num">{t('运行')}</th><th className="num">{t('完整轨迹')}</th><th className="num">{t('平均 reward')}</th><th className="num">{t('无 reward')}</th><th className="num">{t('agent 冲突')}</th><th className="num">{t('零区分度任务')}</th><th className="num">{t('已标注')}</th><th>{t('人审结论')}</th><th className="num">{t('判卷有问题')}</th><th className="num">{t('任务本身的问题')}</th></tr></thead>
         <tbody>{rows.map((r) => (
           <tr key={r.src}>
-            <td><b>{r.src}</b></td>
+            <td style={{ whiteSpace: 'nowrap' }}><b>{r.src}</b></td>
             <td style={{ maxWidth: 260 }}>{r.tasks.map((T) => <Link key={T.id} to={sel.href('/explore/task', { t: T.id, j: T.jobs[0]?.id })} className="tag gray" style={{ margin: '1px 3px 1px 0' }}>{T.id}</Link>)}</td>
             <td className="num">{r.jobs.length}</td>
             <td className={`num ${r.full < r.jobs.length ? 'diff-medium' : ''}`}>{r.full} / {r.jobs.length}</td>

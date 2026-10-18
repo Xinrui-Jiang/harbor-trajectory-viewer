@@ -72,8 +72,8 @@ export default function Overview() {
         <span className="muted">{t('{a} 个任务 · {b} 次运行 · 生成于 {c}', { a: idx.tasks.length, b: jobs.length, c: idx.generatedAt.slice(0, 16).replace('T', ' ') })}</span>
       </div>
       <div className="stats">
-        <Stat v={idx.tasks.length} l={t('任务')} />
-        <Stat v={jobs.length} l={t('运行')} />
+        <Stat v={idx.tasks.length} l={t('任务数')} />
+        <Stat v={jobs.length} l={t('运行数')} />
         <Stat v={<>{full.length}<span className="faint" style={{ fontSize: 13 }}> / {jobs.length}</span></>} l={t('有完整轨迹的运行')} />
         <div className="stat">
           <div className="fbar" style={{ height: 8, margin: '6px 0' }}><i style={{ width: `${(100 * dist.pass) / (jobs.length || 1)}%`, background: 'var(--ok)' }} /><i style={{ width: `${(100 * dist.partial) / (jobs.length || 1)}%`, background: 'var(--mid)' }} /><i style={{ width: `${(100 * dist.fail) / (jobs.length || 1)}%`, background: 'var(--bad)' }} /></div>
